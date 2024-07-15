@@ -4,11 +4,11 @@ from .loxtokens import (
     SINGLE_CHAR_TOKENS,
     WITH_EQUALS_SIGN,
     LoxLiteral,
-    LoxToken,
+    LoxTokenType,
 )
 
 
-class LoxScanner(Scanner[LoxToken, LoxLiteral]):
+class LoxScanner(Scanner[LoxTokenType, LoxLiteral]):
     def _make_eof(self):
         return self._make("EOF")
 

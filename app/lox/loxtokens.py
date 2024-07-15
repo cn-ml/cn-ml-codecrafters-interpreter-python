@@ -1,4 +1,5 @@
 from typing import Literal, cast, get_args
+from ..lexing.tokens import Token as LexToken
 
 SingleCharacterToken = Literal[
     "LEFT_PAREN",
@@ -79,6 +80,8 @@ LiteralToken = Literal[
     "NUMBER",
 ]
 
-LoxToken = Literal[SingleCharacterToken, TwoCharToken, LiteralToken, KeywordToken]
+LoxTokenType = Literal[SingleCharacterToken, TwoCharToken, LiteralToken, KeywordToken]
 
-LoxLiteral = str | int | float
+LoxLiteral = str | int | float | None
+
+type Token = LexToken[LoxTokenType, LoxLiteral]

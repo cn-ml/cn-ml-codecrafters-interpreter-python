@@ -11,3 +11,7 @@ class ScanError(Exception):
 
     def __str__(self) -> str:
         return f"At line {self.line} position {self.position} {self.lexeme!r}: {self.message}"
+
+
+class ParseException(Exception):
+    pass

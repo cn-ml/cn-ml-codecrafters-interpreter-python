@@ -1,12 +1,13 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from sys import stderr
 from typing import Callable
+from .grammar import Grammar
 from .error import ScanError
 from .tokens import Token
 
 
-class Scanner[TToken, TLiteral](ABC):
-    def __init__(self, source: str) -> None:
+class Scanner[TToken, TLiteral](Grammar[str, Token[TToken, TLiteral]]):
+    def __init__(self, source: str):
         self.source = source
         self.start = 0
         self.current = 0
@@ -14,7 +15,7 @@ class Scanner[TToken, TLiteral](ABC):
         self.position = -1
         self.errors = None
 
-    def scan_tokens(self):
+    def execute(self):
         self.start = self.current
         while not self.exhausted():
             try:
@@ -64,9 +65,6 @@ class Scanner[TToken, TLiteral](ABC):
 
     def _scan_error(self, message: str):
         return ScanError(self.source, self.line, self.position, self._lexeme(), message)
-
-    def exhausted(self):
-        return self.current >= len(self.source)
 
     @abstractmethod
     def scan_token(self) -> Token[TToken, TLiteral] | None: ...
