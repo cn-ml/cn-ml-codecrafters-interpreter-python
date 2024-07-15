@@ -1,4 +1,5 @@
 import sys
+from loxscanner import LoxScanner
 
 
 def main():
@@ -16,10 +17,9 @@ def main():
     with open(filename) as file:
         file_contents = file.read()
 
-    if file_contents:
-        raise NotImplementedError("Scanner not implemented")
-    else:
-        print("EOF  null")
+    scanner = LoxScanner(file_contents)
+    for token in scanner.scan_tokens():
+        print(token)
 
 
 if __name__ == "__main__":
