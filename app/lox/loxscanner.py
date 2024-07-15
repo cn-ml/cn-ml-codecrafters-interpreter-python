@@ -31,7 +31,7 @@ class LoxScanner(Scanner[LoxToken, LoxLiteral]):
                 self._reset_line()
         elif c.isdigit():
             return self._digit()
-        elif c.isalpha():
+        elif is_alpha(c):
             return self._identifier()
         elif c == '"':
             return self._string()
@@ -39,7 +39,7 @@ class LoxScanner(Scanner[LoxToken, LoxLiteral]):
             raise self._scan_error(f"Unexpected character: {c}")
 
     def _identifier(self):
-        while self._peek().isalnum():
+        while is_alnum(self._peek()):
             self._advance()
         lexeme = self._lexeme()
         if (keyword := KEYWORD_TOKENS.get(lexeme)) is not None:
@@ -64,3 +64,11 @@ class LoxScanner(Scanner[LoxToken, LoxLiteral]):
             while self._peek().isdigit():
                 self._advance()
         return self._make("NUMBER", float)
+
+
+def is_alpha(character: str):
+    return character.isalpha() or character == "_"
+
+
+def is_alnum(character: str):
+    return character.isalnum() or character == "_"
