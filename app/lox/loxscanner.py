@@ -52,7 +52,7 @@ class LoxScanner(Scanner[LoxToken, LoxLiteral]):
                 self._reset_line()
             self._advance()
         if self.exhausted():
-            raise self._scan_error("Unterminated string!")
+            raise self._scan_error("Unterminated string.")
         self._advance()  # closing symbol
         return self._make("STRING", lambda x: x.strip('"'))
 
