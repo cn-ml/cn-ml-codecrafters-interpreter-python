@@ -36,7 +36,7 @@ class LoxScanner(Scanner[LoxToken, LoxLiteral]):
         elif c == '"':
             return self._string()
         else:
-            raise self._scan_error("Unexpected character!")
+            raise self._scan_error(f"Unexpected character: {c}")
         return None
 
     def _identifier(self):

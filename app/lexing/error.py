@@ -6,7 +6,8 @@ class ScanError(Exception):
         self.line = line
         self.position = position
         self.lexeme = lexeme
+        self.message = message
         super().__init__(message)
 
     def __str__(self) -> str:
-        return f"At line {self.line} position {self.position} {self.lexeme!r}: {super().__str__()}"
+        return f"At line {self.line} position {self.position} {self.lexeme!r}: {self.message}"

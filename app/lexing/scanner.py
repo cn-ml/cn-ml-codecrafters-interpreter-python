@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from sys import stderr
 from typing import Callable
 from .error import ScanError
 from .tokens import Token
@@ -15,8 +16,11 @@ class Scanner[TToken, TLiteral](ABC):
     def scan_tokens(self):
         self.start = self.current
         while not self.exhausted():
-            if (token := self.scan_token()) is not None:
-                yield token
+            try:
+                if (token := self.scan_token()) is not None:
+                    yield token
+            except ScanError as e:
+                print(f"[line {e.line}] Error: {e.message}", file=stderr)
             self.start = self.current
         yield self._make_eof()
 
