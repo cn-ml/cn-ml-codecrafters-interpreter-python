@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Callable
-from error import ScanError
-from tokens import Token
+from .error import ScanError
+from .tokens import Token
 
 
 class Scanner[TToken, TLiteral](ABC):

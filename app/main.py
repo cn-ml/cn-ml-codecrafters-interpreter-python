@@ -1,5 +1,5 @@
 import sys
-from loxscanner import LoxScanner
+from app.lox import Scanner
 
 
 def main():
@@ -17,7 +17,7 @@ def main():
     with open(filename) as file:
         file_contents = file.read()
 
-    scanner = LoxScanner(file_contents)
+    scanner = Scanner(file_contents)
     for token in scanner.scan_tokens():
         print(token)
 

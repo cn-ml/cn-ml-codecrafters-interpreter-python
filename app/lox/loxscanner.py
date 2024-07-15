@@ -1,11 +1,11 @@
-from loxtokens import (
+from ..lexing import Scanner
+from .loxtokens import (
     KEYWORD_TOKENS,
     SINGLE_CHAR_TOKENS,
     WITH_EQUALS_SIGN,
     LoxLiteral,
     LoxToken,
 )
-from scanner import Scanner
 
 
 class LoxScanner(Scanner[LoxToken, LoxLiteral]):
