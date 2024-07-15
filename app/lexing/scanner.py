@@ -12,6 +12,7 @@ class Scanner[TToken, TLiteral](ABC):
         self.current = 0
         self.line = 1
         self.position = -1
+        self.errors = None
 
     def scan_tokens(self):
         self.start = self.current
@@ -21,6 +22,8 @@ class Scanner[TToken, TLiteral](ABC):
                     yield token
             except ScanError as e:
                 print(f"[line {e.line}] Error: {e.message}", file=stderr)
+                self.errors = self.errors or list[ScanError]()
+                self.errors.append(e)
             self.start = self.current
         yield self._make_eof()
 

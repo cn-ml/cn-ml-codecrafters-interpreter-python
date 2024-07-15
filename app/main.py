@@ -20,6 +20,8 @@ def main():
     scanner = Scanner(file_contents)
     for token in scanner.scan_tokens():
         print(token)
+    if scanner.errors is not None:
+        exit(65)
 
 
 if __name__ == "__main__":
