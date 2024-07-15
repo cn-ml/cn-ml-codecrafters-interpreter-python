@@ -14,18 +14,18 @@ class LoxScanner(Scanner[LoxToken, LoxLiteral]):
 
     def scan_token(self):
         c = self._advance()
-        if (type := SINGLE_CHAR_TOKENS.get(c)) is not None:
-            return self._make(
-                with_equals
-                if (with_equals := WITH_EQUALS_SIGN.get(type)) and self.match("=")
-                else type
-            )
-        elif c == "/":
+        if c == "/":
             if self.match("/"):
                 while self._peek() != "\n" and not self.exhausted():
                     self._advance()
             else:
                 return self._make("SLASH")
+        elif (type := SINGLE_CHAR_TOKENS.get(c)) is not None:
+            return self._make(
+                with_equals
+                if (with_equals := WITH_EQUALS_SIGN.get(type)) and self.match("=")
+                else type
+            )
         elif c.isspace():
             if c == "\n":
                 self._reset_line()
@@ -37,7 +37,6 @@ class LoxScanner(Scanner[LoxToken, LoxLiteral]):
             return self._string()
         else:
             raise self._scan_error(f"Unexpected character: {c}")
-        return None
 
     def _identifier(self):
         while self._peek().isalnum():
